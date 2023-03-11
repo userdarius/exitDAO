@@ -6,13 +6,13 @@ contract DepositContract {
     mapping(address => uint256) public tokens;
 
     uint256 public totalDeposits;
-    uint256 public constant maxDeposits = 100000;
+    uint256 public constant minDeposits = 100000;
 
     event Deposit(address indexed user, uint256 amount);
     event Withdrawal(address indexed user, uint256 amount);
 
     function deposit() public payable {
-        require(totalDeposits < maxDeposits, "Maximum deposits reached");
+        require(totalDeposits <= minDeposits, "Maximum deposits reached");
         require(msg.value > 0, "Deposit amount must be greater than 0");
         address user = msg.sender;
         deposits[user] += msg.value;
